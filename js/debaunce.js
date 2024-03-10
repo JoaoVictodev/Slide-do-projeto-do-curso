@@ -8,4 +8,3 @@ export default function debaunce(callback, delay) {
     }, delay)
   }
 }
-
