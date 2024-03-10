@@ -1,6 +1,6 @@
 import debaunce from "./debaunce.js";
 
-export default class Slide{
+export class Slide{
   constructor(slide, wrapper){
     this.slide = document.querySelector(slide);
     this.wrapper = document.querySelector(wrapper);
@@ -128,6 +128,9 @@ export default class Slide{
     this.onMove = this.onMove.bind(this);
     this.onEnd = this.onEnd.bind(this)
 
+    this.activePrevSlide = this.activePrevSlide.bind(this);
+    this.activeNextSlide = this.activeNextSlide.bind(this)
+
     this.onResize = debaunce(this.onResize.bind(this), 200)
   }
 
@@ -137,7 +140,22 @@ export default class Slide{
     this.transition(true);
     this.addSlideEvent();
     this.slidesConfig();
-    this.addResizeEvent()
+    this.addResizeEvent();
+    this.changedSlide(0)
     return this
   }
+}
+
+export class SlideNav extends Slide{
+ addArrow(prev, next){
+  this.prevElements = document.querySelector(prev);
+  this.nextElements = document.querySelector(next);
+  this.addArrowEvents()
+ } 
+
+ addArrowEvents(){
+  this.prevElements.addEventListener('click', this.activePrevSlide);
+  this.nextElements.addEventListener('click', this.activeNextSlide);
+ }
+
 }
